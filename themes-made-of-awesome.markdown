@@ -69,6 +69,43 @@ file extension of `.scss` and then tell SASS to watch for changes.
 	mv style.css style.scss
 	sass watch --style.scss:style.css
 
+You can then start writing SASS beneath the comment block at the top. To make
+sure SASS keeps this comment block, you can put a `!` after the first asterisk:
+
+	/*!
+	Theme Name: Your Theme
+	...
+	*/
+
+However, there are some limitations to just working with this simple directory
+structure which will become clear when we start talking about some of the
+features of SASS. 
+
+You can tell SASS to watch a directory of multiple SASS `partials` and compile
+them down into a single CSS file in another directory. The command to make that
+happen is this:
+
+	sass --watch scss:css
+
+That will watch for changes in any `.scss` files in the `scss` directory and
+compile them into a `.css` file (with the same name) in a directory called
+`css`. Here's an image to show a sample directory structure:
+
+
+
+Now to use this compiled stylesheet all you have to do is include it in your
+theme:
+
+	<?php wp_enqueue_style( 'global-styles', get_template_directory_uri() . '/css/global.css', null, '1.0', 'screen' ) ?>
+
+But what about `style.css`?
+
+`style.css` may be one of the two files *required* by WordPress but as long as
+it's there and has the correct comment block, you're all set. There is no need
+to add it to the `<head>` of your theme - in fact doing so would be a waste of
+an HTTP request.
+	
+
 ## What does it do?
 
 ### Organisation
