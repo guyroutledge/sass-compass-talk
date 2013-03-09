@@ -1,0 +1,31 @@
+// Variables start with a $ and can have various different types:
+// color (hex, rgb, hsl, color name, etc.)
+// strings
+// lists
+// numbers
+// booleans
+// null
+
+$color-brand:#f29c7b;
+$color-border:#ccc;
+$border-style:"solid";
+
+$font-brand:'Helvetica', 'Arial', 'Verdana', sans-serif;
+
+$global-line-height:1.5;
+$global-padding:1em 0;
+
+// Variables simply replace properties in a selector
+
+.featured-article {
+	margin:2em 0;
+	padding:$global-padding;
+
+	color:$color-brand;
+	font-size:2em;
+	font-family:$font-brand;
+	line-height:$global-line-height*2;
+
+	background:#eee;
+	border:1px $border-style $color-border;
+}

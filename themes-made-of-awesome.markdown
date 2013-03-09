@@ -167,6 +167,17 @@ over again. This is *not* awesome.
 
 ### Variables
 
+Variables are one of the things people rave about in SASS. They are very cool.
+
+They can be used to set up you default color pallet, spacing, font-stacks, you
+name it - if it can be set with CSS, it can be stored in a variable. Variables
+can be all defined in a single partial or can be declared inline. I tend to
+store global variables for the overall look and feel in a single
+`_variables.scss` partial and then have "single use" variables inter-mingled
+throughout my styles.
+
+<!-- link to variables gist -->
+
 ### Nesting
 
 ### Mixins
