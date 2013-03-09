@@ -108,7 +108,62 @@ an HTTP request.
 
 ## What does it do?
 
+So we've got SASS installed and the compiled stylesheet linked up in our theme,
+what now? Well you could write plain old CSS and call it a day, but let's use
+a few examples to run through some of the awesome features of SASS.
+
 ### Organisation
+
+You are no doubt familiar with the idea of a single `style.css` file that
+contains all the CSS for a whole project. You start out meaning well, even throw
+in some comments to section things off a bit but as the project grows and
+perhaps as time passes and things are changed, removed or added, things get
+a bit bloated and hard to maintain. This can lead to all sorts of issues
+- especially if there are multiple people working on the project. 
+
+SASS has your back here. We have aleady seen how SASS compiles into a CSS file
+but it doesn't have to be a 1-to-1 relationship. You can have as many SASS
+`partials` as you like and `@import` them into a single stylesheet. Because SASS
+is *pre*-processed, these `@imports` don't incure any extra requests. 
+
+Partials are prefixed with an underscore character and you might have several of
+them for things like your reset, grid, typography, header, footer, sidebar,
+etc. You can then include all these components that make up your global styles
+into a `global.scss` file. 
+
+	// In global.scss
+	// Partials for global styles to be compiled to global.css
+
+	@import "global-reset";
+	@import "global-grid";
+	@import "global-typography";
+	@import "global-header";
+	@import "global-footer";
+	@import "global-sidebar";
+	@import "global-forms";
+	@import "global-buttons";
+
+You could use a naming convention to keep things even more organised although
+I tend to have a `global` directory, a `template` directory, a `pages` directory
+and a `plugins` directory instead. You could do both and be super organised...
+
+If you have a big website, you might want to create a separate compiled
+stylesheet for a products section (for example) and enqueue it only on the
+relevant pages. 
+
+	// In product.scss
+	// Partials for the shop to be compiled to product.css
+
+	@import "product-range";
+	@import "product-slideshow";
+	@import "product-sidebar";
+	@import "product-single";
+
+This will mean your users will only download what they need,
+when they need it. It also helps with caching - if the global styles are
+unlikely to change much but you're forever adding new features to a single
+stylesheet, the cache is broken and the user has to download the whole lot all
+over again. This is *not* awesome.
 
 ### Variables
 
