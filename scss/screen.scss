@@ -1,2 +1,10 @@
+// Partials are found in the scss directory
+// Partials are prefixed with an underscore
+// eg. scss/_variables.scss
+
+// Partials are imported into screen.scss
+// with the syntax below and compiled into
+// css/screen.css
+
 @import "variables";
 @import "nesting";
