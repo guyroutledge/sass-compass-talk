@@ -69,8 +69,15 @@ file extension of `.scss` and then tell SASS to watch for changes.
 	mv style.css style.scss
 	sass watch --style.scss:style.css
 
-You can then start writing SASS beneath the comment block at the top. To make
-sure SASS keeps this comment block, you can put a `!` after the first asterisk:
+You can do this with a complete and working theme too - and if you would rather
+use the whitepsace dependent SASS syntax you can run a conversion on the command
+line:
+
+	sass convert style.css style.sass
+
+You can then start writing SASS (or SCSS) beneath the comment block at the top.
+To make sure SASS keeps this comment block, you can put a `!` after the first
+asterisk:
 
 	/*!
 	Theme Name: Your Theme
