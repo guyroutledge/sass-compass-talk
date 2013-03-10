@@ -351,6 +351,31 @@ lean. That's two helpings of awesome in one go!
 
 ### Color Functions
 
+Colour makes the web a more beautiful place. We're already using variables to
+keep use of our colour consistent (eg. $color-brand) but what if we want to use
+variations on that color and don't remember how `#f29c7b` relates to `#bf7c62`
+without having to open up Photoshop.
+
+	a { 
+		color:$color-brand; // #f29c7b
+	
+		&:visited { 
+			color:darken($color-brand, 20%); // #bf7c62
+		}
+	}
+
+There are a whole load of color functions - some I use very regularly and others
+never at all. Here's a few of my favourites:
+
+	rgba($color, $alpha);
+	adjust-hue($color, $degrees);
+	mix($color1, $color2, [$weight]);
+	lighten($color, $amount);
+	darken($color, $amount);
+	saturate($color, $amount);
+	desaturate($color, $amount);
+	transparentize($color, $amount);
+
 ### Math
 
 ### Flow Control
