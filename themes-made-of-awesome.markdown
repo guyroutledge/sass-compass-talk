@@ -199,6 +199,51 @@ following:
 
 ### Nesting
 
+Nesting allows you to write less. Imagine marking up a navigation you might
+write some CSS like this:
+
+	.main-nav               { /* styles */ }
+	.main-nav ul            { /* styles */ }
+	.main-nav ul li         { /* styles */ }
+	.main-nav ul li a       { /* styles */ }
+	.main-nav ul li a:hover { /* styles */ }
+	.ie8 .main-nav          { /* styles */ }
+
+To get the exact same structure in SASS you can just do this:
+
+	.main-nav {
+		// styles 
+
+		ul {
+			// styles 
+
+			li {
+				// styles 
+
+				a {
+					// styles 
+					
+					&:hover {
+						// styles
+					}
+				}
+			}
+		}
+
+		.ie8 & {
+			// styles
+		}
+	}
+
+When SASS compiles, it will actually generate the CSS in the first example.
+
+It's advisable not to nest too deeply as this can cause you issues with CSS
+specificity and unneccessary "code bloat" which is often one of the arguments
+used against SASS. However, if you learn how SASS compiles into CSS you can be
+aware of these issues and avoid them. 
+
+<!-- link to gist for nesting -->
+
 ### Mixins
 
 ### Extends

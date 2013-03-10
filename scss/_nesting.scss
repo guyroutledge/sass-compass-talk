@@ -1,0 +1,31 @@
+// Nesting saves you time but be careful to not nest too deeply!
+
+	.main-nav {
+		// styles
+
+		ul {
+			// styles
+
+			li {
+				// styles
+
+				a {
+					// styles
+
+					&:hover {
+						// styles
+						// the & references the parent - in this case
+						// it's the same as writing a:hover { }
+					}
+				}
+			}
+		}
+
+		.ie8 & {
+			// styles
+			// Where an & is used after a selector, it means
+			// all parents of this selector will be added after
+			// what ever preceeds it. In this case the compiled
+			// CSS would be .ie8 .main-nav { }
+		}
+	}
