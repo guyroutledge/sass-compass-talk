@@ -246,6 +246,56 @@ aware of these issues and avoid them.
 
 ### Mixins
 
+Mixins enable you to re-use a snippet of code in more than one place. It's
+important to think about what this means though - if you are reusing a lot of
+code by using mixins, there's probably a more efficient way of writing your CSS.
+However, one of the big features of mixins is that they can accept arguments. 
+
+	@mixin button($background, $foreground, $font-size:1em){
+		display:inline-block;
+		padding:0.5em 1em;
+
+		color:$foreground;
+		font-size:$font-size;
+		font-family:$font-brand;
+
+		background:$background;
+	}
+	.button {
+		@include button(blue, white);
+	}
+	.button-error {
+		@include button(#f90, white, 2em);
+		box-shadow:0px 0px 5px rgba(red, 0.3);
+	}
+
+Another handy feature of mixins is the `@content` feature. This allows you to
+re-use styles with different selectors.
+
+	@mixin placeholder() {
+		::-webkit-input-placeholder {
+			@content;
+		}
+		::-moz-placeholder {
+			@content;
+		}
+		:-moz-placeholder {
+			@content;
+		}
+		:-ms-input-placeholder {
+			@content;
+		}
+	}
+
+It's likely that you want the same placeholder attribute styling for all
+browsers but you can't comma separate these for some reason - using a mixin with
+`@content` you can call it with as follows:
+
+	@include placeholder{
+		color:#ccc;
+		font-style:italic;
+	}
+
 ### Extends
 
 ### Color Functions
