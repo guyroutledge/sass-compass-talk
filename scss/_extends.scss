@@ -1,0 +1,42 @@
+// we can create a base module which can then be used
+// throughout our code without bloating our CSS or
+// filling our markup with presentational class-names
+// by using slient placeholders and @extend
+
+%button {
+	display:inline-block;
+	margin:1em 0;
+	padding:1em 2em;
+
+	color:#fff;
+	font-size:1em;
+	background:#eee;
+	border-radius:1em;
+}
+%button-large {
+	font-size:3em;
+	border-radius:2em;
+}
+
+.feature-button {
+	@extend %button; // add all styles from %button
+	@extend %button-large; // add larger font and more border-radius
+}
+
+// output CSS:
+// note that font-size and border-radius are duplicated
+// but come in the order that they are @extended. This is not
+// ideal from a code-bloat perspective but does obvserve the cascade
+/*
+.feature-button {
+	display:inline-block;
+	margin:1em 0;
+	padding:1em 2em;
+	color:#fff;
+	font-size:1em;
+	background:#eee;
+	border-radius:1em;
+	font-size:3em;
+	border-radius:2em;
+}
+*/

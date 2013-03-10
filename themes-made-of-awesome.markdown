@@ -296,7 +296,58 @@ browsers but you can't comma separate these for some reason - using a mixin with
 		font-style:italic;
 	}
 
-### Extends
+### Extends and Silent Placeholders
+
+As well as being a big fan of SASS, I'm a big fan of lean, modular CSS.
+There are frameworks for this like [OOCSS][7] but I tend to prefer the more
+theoretical and framework-free [SMACSS][8]. 
+
+These methodologies are similar in that they both encourage breaking up your
+styles into reusable componets that are applied as classes in your HTML - and
+not just a single class on an element but perhaps many of them; a base module
+followed by modifiers. For example:
+
+	<a class="button button-large button-error" href="/help">Fail!</a>
+
+This is all well and good but it might be neater if there weren't three
+presentational classnames on our link. Enter `@extend` and `silent placeholder
+classes`.
+
+You will be familiar with the following CSS selectors:
+
+	a { }             // element selector
+	.button { }       // class selector
+	#button-large { } // ID selector
+
+In SASS we have silent classes that look like this:
+
+	%button-large { font-size:3em; }
+
+When SASS compiles, this silent placeholder is no-where to be seen until we use
+it to `@extend` an existing selector.
+
+	%button {
+		display:inline-block;
+		margin:1em 0;
+		padding:1em 2em;
+
+		color:#fff;
+		font-size:1em;
+		background:#eee;
+	}
+	%button-large { font-size:3em; }
+
+	.feature-button {
+		@extend %button;
+		@extend %button-large;
+	}
+
+This will apply the styles from `%button` and `%button-large` to the
+`.comment-submit-button` class. This class is named by it's purpose but is made
+up of a series of presentational components. This can make our markup more human
+readable and reduce the number of presentational class names. As these silent
+placeholders don't compile into anything, they also make our output CSS nice and
+lean. That's two helpings of awesome in one go!
 
 ### Color Functions
 
