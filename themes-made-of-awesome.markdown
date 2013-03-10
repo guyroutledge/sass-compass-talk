@@ -18,7 +18,7 @@ The clue to what makes this possible is in the name *pre-processor*.
 Instead of writing CSS you write SASS or SCSS and then run a compiler which
 turns it into plain old normal CSS for use on your website.
 
-There are two different sytaxes: SASS and SCSS.
+There are two different syntaxes: SASS and SCSS.
 
 SASS looks like this:
 
@@ -70,7 +70,7 @@ file extension of `.scss` and then tell SASS to watch for changes.
 	sass watch --style.scss:style.css
 
 You can do this with a complete and working theme too - and if you would rather
-use the whitepsace dependent SASS syntax you can run a conversion on the command
+use the whitespace dependent SASS syntax you can run a conversion on the command
 line:
 
 	sass convert style.css style.sass
@@ -128,10 +128,10 @@ perhaps as time passes and things are changed, removed or added, things get
 a bit bloated and hard to maintain. This can lead to all sorts of issues
 - especially if there are multiple people working on the project. 
 
-SASS has your back here. We have aleady seen how SASS compiles into a CSS file
+SASS has your back here. We have already seen how SASS compiles into a CSS file
 but it doesn't have to be a 1-to-1 relationship. You can have as many SASS
 `partials` as you like and `@import` them into a single stylesheet. Because SASS
-is *pre*-processed, these `@imports` don't incure any extra requests. 
+is *pre*-processed, these `@imports` don't incur any extra requests. 
 
 Partials are prefixed with an underscore character and you might have several of
 them for things like your reset, grid, typography, header, footer, sidebar,
@@ -184,7 +184,7 @@ store global variables for the overall look and feel in a single
 throughout my styles.
 
 I also tend to use a prefix with variables so I know what they are supposed to
-be for. Becuase you can store anything in a variable, you could do the
+be for. Because you can store anything in a variable, you could do the
 following:
 
 	$padding: 2em;
@@ -238,7 +238,7 @@ To get the exact same structure in SASS you can just do this:
 When SASS compiles, it will actually generate the CSS in the first example.
 
 It's advisable not to nest too deeply as this can cause you issues with CSS
-specificity and unneccessary "code bloat" which is often one of the arguments
+specificity and unnecessary "code bloat" which is often one of the arguments
 used against SASS. However, if you learn how SASS compiles into CSS you can be
 aware of these issues and avoid them. 
 
@@ -303,14 +303,14 @@ There are frameworks for this like [OOCSS][7] but I tend to prefer the more
 theoretical and framework-free [SMACSS][8]. 
 
 These methodologies are similar in that they both encourage breaking up your
-styles into reusable componets that are applied as classes in your HTML - and
+styles into reusable components that are applied as classes in your HTML - and
 not just a single class on an element but perhaps many of them; a base module
 followed by modifiers. For example:
 
 	<a class="button button-large button-error" href="/help">Fail!</a>
 
 This is all well and good but it might be neater if there weren't three
-presentational classnames on our link. Enter `@extend` and `silent placeholder
+presentational class names on our link. Enter `@extend` and `silent placeholder
 classes`.
 
 You will be familiar with the following CSS selectors:
