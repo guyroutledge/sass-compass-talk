@@ -183,6 +183,18 @@ store global variables for the overall look and feel in a single
 `_variables.scss` partial and then have "single use" variables inter-mingled
 throughout my styles.
 
+I also tend to use a prefix with variables so I know what they are supposed to
+be for. Becuase you can store anything in a variable, you could do the
+following:
+
+	$padding: 2em;
+
+	.module {
+		width:50%; 
+		padding:$padding;
+		margin:$padding; // wtf?
+	}
+
 <!-- link to variables gist -->
 
 ### Nesting
