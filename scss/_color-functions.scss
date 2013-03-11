@@ -5,8 +5,8 @@ $color-default:HotPink;
 .sign-up a {
 	color:$color-default;
 
-	a:hover { color:lighten($color-default, 10%);
-	a:visited { color:darken($color-default, 10%);
+	a:hover { color:lighten($color-default, 10%); }
+	a:visited { color:darken($color-default, 10%); }
 }
 
 .sign-up-button {
@@ -14,9 +14,8 @@ $color-default:HotPink;
 	margin:1em 0;
 	padding:$global-padding;
 	color:saturate($color-default, 20%);
-	background:rgba($color-default, 5%);
-	border:2px solid transparentize($color-default, 10%);
+	background:rgba($color-default, 0.05);
+	border:2px solid transparentize($color-default, 0.1);
 	box-shadow:0px 0px 5px rgba(darken($color-default, 30%), 0.3);
 }
-
 
