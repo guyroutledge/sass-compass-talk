@@ -502,6 +502,56 @@ sounds very similar to my definition of SASS so the best thing to do is
 demo exactly *what* this enhanced version of SASS can do...
 
 
+### How do I get it?
+
+First off, we better install it. Remember how easy it was to install SASS? Well,
+Compass is pretty much the same deal:
+
+	sudo gem install compass
+
+When that has installed (along with it's documentation) you're all set to create
+a Compass project.
+
+	cd /path/to/theme
+	compass create --sass-dir=scss --css-dir=css
+	compass watch
+
+You now have all the power of Compass at your fingertips.
+
+Compass will create your directory structure as defined by the `--sass-dir` and
+`--css-dir` options. You can leave these blank and Compass will use it's
+defaults - I just prefer this naming over `sass` and `stylesheets` which are the
+defaults.
+
+To tell Compass to watch for changes, just type `compass watch`. You can also
+issue the command `compass compile` which will compile everything once but not
+watch for further changes.
+
+#### Compass Config
+
+Compass creates a configuration file called `config.rb` in your project
+root. This is where you can change the paths to your `scss` and `css`
+directories as well as tell compass where your HTTP root, images and javascript
+folders are. 
+
+Here is also where you can control the output of the compiled CSS. The options
+are `:expanded`, `:nested`, `:compact` or `:compressed`.
+
+During development, I'd recommend to use the `:expanded` setting - this will
+leave plenty of whitespace and helpful comments in the compiled stylesheet that
+can be useful when debugging. 
+
+When putting a site live, I'd recommend the `:compressed` setting which removes
+all inline comments and whitespace, minifying and compressing the file to it's
+smallest possible size - this is great for performance.
+
+All of the [material on github][9] is contained within a Compass project so have
+a play around with the different settings to see which ones you prefer.
+
+Now let's have a look at some of the awesome stuff Compass gives you access
+to...
+
+
 ### Vendor Prefixes
 
 ### Helper Functions
