@@ -486,10 +486,21 @@ icons:
 
 If you're more social than me, this could save you a *lot* of time. 
 
+
 ## What is Compass?
 
+So this is all great stuff but this is just SASS. We've not even looked at the
+most awesome thing that you get when you work with SASS: Compass. 
 
-## What does it Do?
+Compass is a framework that sits on top of SASS. Since SASS is a framework that
+sits on top of CSS, you might be wondering what the hell a framework on top of a
+framework looks like. 
+
+Compass provides a set of helper functions, tools and pre-defined mixins that
+can save you even more time and make your stylesheets more maintainable. That
+sounds very similar to my definition of SASS so the best thing to do is
+demo exactly *what* this enhanced version of SASS can do...
+
 
 ### Vendor Prefixes
 
