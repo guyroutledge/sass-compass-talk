@@ -421,6 +421,70 @@ according to SASS. This is greater than the midpoint between black and white
 around with other colors in the `_conditionals.scss` partial included with the
 example files.
 
+#### Loops
+
+Loops are another common programming concept - they take a block of instructions
+and repeat them as long as a specified condition is true. It's simplest to look
+at an example.
+
+	@for $i from 1 through 4 {
+		column-#{$i}-of-4 {
+			width: $i * 25%;
+		}
+	}
+	// outputs:
+	// .column-1-of-4 { width:25%; }
+	// .column-2-of-4 { width:50%; }
+	// .column-3-of-4 { width:75%; }
+	// .column-4-of-4 { width:100%; }
+
+The for loop runs the block of code between it's braces setting the value of $i
+from 1 *through* (up to and including) 4. If the loop had the condition 
+`$i from 1 *to* 4` it would only run 3 times; it runs from 1 up to (but not including) 4.
+
+The same thing could be achieved with a `@while` loop which gives more
+fine-grained control of how the counter variable ($i) changes:
+
+	@while $i <= 4 {
+		column-#{$i}-of-4 { 
+			width: $i * 25%;
+		}
+		$i: $i + 1;
+	}
+
+The difference here is that we have to specify how we want $i to be modified so
+that the loop continues. We could have done `$i: $i + 2` and get the following
+output:
+
+	.column-1-of-4 { width:25%; }
+	.column-3-of-4 { width:75%; }
+
+On the third iteration, `$i` would have been increased from 3 to 5 and the
+condition "while `$i` is less than or equal to 4 would not be true and the loop
+would stop. I have used `@for loops` numerous times when writing SASS but have
+not yet found myself reaching for `@while`...
+
+The third and possibly most useful loop is the `@each loop` this is similar to
+`foreach` in PHP and `$.each` in jQuery. It's a loop that operates on a set of
+data. In SASS that set of data takes the form of a list (although in other
+languages it's usually an array). Let's look at a common example of social media
+icons:
+
+	$social-icons: twitter, facebook, google-plus, pinterest, dribble, youtube;
+	@each $social in $social-icons {
+		.share-#{$social} {
+			background:url('../images/#{$social}-icon.png');
+		}
+	}
+	// outputs
+	// .share-twitter     { background:url('../images/twitter-icon.png'); }
+	// .share-facebook    { background:url('../images/facebook-icon.png'); }
+	// .share-google-plus { background:url('../images/google-plus-icon.png'); }
+	// .share-pinterest   { background:url('../images/pinterest-icon.png'); }
+	// .share-dribble     { background:url('../images/dribble-icon.png'); }
+	// .share-youtube     { background:url('../images/youtube-icon.png'); }
+
+If you're more social than me, this could save you a *lot* of time. 
 
 ## What is Compass?
 

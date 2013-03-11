@@ -1,0 +1,28 @@
+// Loops can make short work out of writing repetative stuff:
+
+// Loop for each number in the specified range
+
+@for $i from 1 through 4 {
+	column-#{$i}-of-4 {
+		width: $i * 25%;
+	}
+}
+
+// Loop while a condition is true
+
+$i:1;
+@while $i <= 4 {
+	row-#{$i}-of-4 {
+		height: $i * 25px;
+	}
+	$i: $i + 1;
+}
+
+// Loop through each item in a list
+
+$social-icons: twitter, facebook, google-plus, pinterest, dribble, youtube;
+@each $social-icon in $social-icons {
+	.#{$social-icon}-icon {
+		background:url('../images/#{$social-icon}-icon.png');
+	}
+}
