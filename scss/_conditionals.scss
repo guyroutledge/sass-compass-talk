@@ -1,0 +1,46 @@
+// We can use variables, a bit of math and SASS conditionals to find out
+// what color text we should use on a block of copy with a colored background
+// to make sure there is enough contrast for accessibility.
+
+// The @debug is used to print the value of SASS expressions to the console
+// so you can see what's happening.
+
+$color-white: #fff;
+$color-white-luminosity: lightness($color-white);
+@debug 'white: ' + $color-white-luminosity;
+
+$color-black: #000;
+$color-black-luminosity: lightness($color-black);
+@debug 'black: ' + $color-black-luminosity;
+
+$color-midpoint: ($color-white-luminosity + $color-black-luminosity)/2;
+@debug 'midpoint: ' + $color-midpoint;
+
+
+// $color-background is the background of our element
+// $color-foreground is an empty variable that will be set based on our condition
+$color-foreground:null;
+$color-background:#f29c7b;
+$color-background-luminosity: lightness($color-background);
+@debug 'background color: ' + $color-background;
+@debug 'background color luminosity: ' + $color-background-luminosity;
+
+.error-message {
+	padding:1em;
+	background:$color-background;
+	font-size:2em;
+	font-family:$font-brand;
+
+	// If the background color is lighter than the midpoint between
+	// black and white, we need black text, if the background is darker
+	// than the midpoint, we need white text.
+
+	@if ( $color-background-luminosity > $color-midpoint ) {
+		$color-foreground:$color-black;
+	} @else {
+		$color-foreground:$color-white;
+	}
+
+	@debug 'color > midpoint: ' + ($color-background-luminosity > $color-midpoint);
+	@debug 'color foreground: ' + $color-foreground;
+}

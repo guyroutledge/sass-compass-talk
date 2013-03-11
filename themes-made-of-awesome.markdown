@@ -353,14 +353,14 @@ lean. That's two helpings of awesome in one go!
 
 Colour makes the web a more beautiful place. We're already using variables to
 keep use of our colour consistent (eg. $color-brand) but what if we want to use
-variations on that color and don't remember how `#f29c7b` relates to `#bf7c62`
+variations on that color and don't remember how `#f29c7b` relates to `#e9561e`
 without having to open up Photoshop.
 
 	a { 
 		color:$color-brand; // #f29c7b
 	
 		&:visited { 
-			color:darken($color-brand, 20%); // #bf7c62
+			color:darken($color-brand, 20%); // #e9561e
 		}
 	}
 
@@ -376,12 +376,50 @@ never at all. Here's a few of my favourites:
 	desaturate($color, $amount);
 	transparentize($color, $amount);
 
-### Math
+### Flow Control, Functions and Math
 
-### Flow Control
+Now we're getting to some powerful stuff. SASS turns CSS into something closer
+to a scripting language (like JavaScript) more than a purely declarative
+language and it does this by adding conditionals, loops, functions and
+mathematic operations. The math is fairly self explanatory so we'll just look at
+that with some wider examples. Let's first take a look at conditionals...
 
-### Functions
+#### Conditionals
 
+Conditionals are used in programming to change what happens based on a
+condition which evaluates to true or false (or truthy or falsey to be more
+precise). SASS uses the following conditionals:
+
+	@if ( $condition ) {
+		// do stuff if $condition is true
+	} @else if ( $other-condition ) {
+		// do this instead if $condition is false
+		// but $other-condition is true
+	} @else {
+		// do this if neither of the above are true
+	}
+
+Now that's all very well, but how is this useful in CSS? How about an
+accessibility example?
+
+Let's say you have a error message that has a light red background. What color
+text should it have for the most contrast, black or white? We can use SASS to
+find out:
+
+	$color-background:#f29c7b; // light orange/red
+	$color-foreground:null;
+
+	@if ( lightness($color-background) > (lightness(#fff) + lightness(#000))/2 ) {
+		color-forground:#000;
+	} @else {
+		$color-foreground:#fff;
+	}
+
+In this case the lightness (or luminosity) component of `#f29c7b` is 71.5%
+according to SASS. This is greater than the midpoint between black and white
+(50%) so we should use black text for higher contrast. You can have a play
+around with other colors in the `_conditionals.scss` partial included with the
+example files.
 
 
 ## What is Compass?
