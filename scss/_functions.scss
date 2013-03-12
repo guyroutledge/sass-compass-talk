@@ -35,7 +35,7 @@
 	@if ( $R-foreground <= 0.03928 ) {
 		$R-foreground: $R-foreground/12.92;
 	} @else {
-		$R-foreground: (($R-foreground+0.055)/1.055)*(($R-foreground+0.055)/1.055)*((($R-foreground+0.055)/1.055)*1.4);
+		$R-foreground: pow((($R-foreground+0.055)/1.055), 2.4);
 	}
 	@debug $R-foreground;
 
@@ -43,7 +43,7 @@
 	@if ( $G-foreground <= 0.03928 ) {
 		$G-foreground: $G-foreground/12.92;
 	} @else {
-		$G-foreground: (($G-foreground+0.055)/1.055)*(($G-foreground+0.055)/1.055)*((($G-foreground+0.055)/1.055)*1.4);
+		$G-foreground: pow((($G-foreground+0.055)/1.055), 2.4);
 	}
 	@debug $G-foreground;
 
@@ -51,7 +51,7 @@
 	@if ( $B-foreground <= 0.03928 ) {
 		$B-foreground: $B-foreground/12.92;
 	} @else {
-		$B-foreground: (($B-foreground+0.055)/1.055)*(($B-foreground+0.055)/1.055)*((($B-foreground+0.055)/1.055)*1.4);
+		$B-foreground: pow((($B-foreground+0.055)/1.055), 2.4);
 	}
 	@debug $B-foreground;
 
@@ -59,7 +59,7 @@
 	@if ( $R-background <= 0.03928 ) {
 		$R-background: $R-background/12.92;
 	} @else {
-		$R-background: (($R-background+0.055)/1.055)*(($R-background+0.055)/1.055)*((($R-background+0.055)/1.055)*1.4);
+		$R-background: pow((($R-background+0.055)/1.055), 2.4);
 	}
 	@debug $R-background;
 
@@ -67,7 +67,7 @@
 	@if ( $G-background <= 0.03928 ) {
 		$G-background: $G-background/12.92;
 	} @else {
-		$G-background: (($G-background+0.055)/1.055)*(($G-background+0.055)/1.055)*((($G-background+0.055)/1.055)*1.4);
+		$G-background: pow((($G-background+0.055)/1.055), 2.4);
 	}
 	@debug $G-background;
 
@@ -75,7 +75,7 @@
 	@if ( $B-background <= 0.03928 ) {
 		$B-background: $B-background/12.92;
 	} @else {
-		$B-background: (($B-background+0.055)/1.055)*(($B-background+0.055)/1.055)*((($B-background+0.055)/1.055)*1.4);
+		$B-background: pow((($B-background+0.055)/1.055), 2.4);
 	}
 	@debug $B-background;
 
@@ -87,11 +87,23 @@
 
 		$L1:0.2126 * red($foreground) + 0.7152 * green($foreground) + blue($foreground);
 		$L2:0.2126 * red($background) + 0.7152 * green($background) + blue($background);
+		@debug 'L1: ' + $L1;
+		@debug 'L2: ' + $L2;
 		@if ( ($L1+0.05) / ($L2+0.05) > $contrast-ratio ) {
 			@debug 'Your contrast is all good';
 			@return true;
 		} @else {
+			@debug ($L1+0.05) / ($L2+0.05);
 			@debug 'Your contrast is not high enough';
+			$adjusted: $L2 * $contrast-ratio;
+			$delta: $adjusted - $L1;
+			$percent: ($delta / $L1) * 100%;
+			@if ( $percent > 100% ) {
+				$percent:100%;
+			}
+			$foreground: lighten($foreground, $percent);
+			@debug 'Trying foreground: ' + $foreground;
+			@return $foreground;
 		// if it's not high enough, brighten the text to til the correct ratio
 		// is reached using the same hue and saturation
 		}
@@ -105,8 +117,8 @@
 	}
 	@return $foreground;
 }
-$call-out-color:#eee;
-$call-out-background:#f60;
+$call-out-color:#6eaecc;
+$call-out-background:#b74a01;
 
 .call-out {
 	margin:1em 0;
