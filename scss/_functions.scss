@@ -20,11 +20,6 @@
 // AAA rating contrast ratio: 7:1
 
 @function checkContrast($foreground, $background, $level:AA){
-
-	@if ( $foreground == $background ) {
-		@warn "You're colors must be different!";
-		@return false;
-	}
 	// Initialise some variables.
 	// We'll use the lightness component of each color to decide whether the
 	// foreground is brighter or darker than the background
@@ -47,6 +42,7 @@
 	} @else {
 		$R-foreground: pow((($R-foreground+0.055)/1.055), 2.4);
 	}
+	@debug $R-foreground;
 
 	$G-foreground: green($foreground)/255;
 	@if ( $G-foreground <= 0.03928 ) {
@@ -54,6 +50,7 @@
 	} @else {
 		$G-foreground: pow((($G-foreground+0.055)/1.055), 2.4);
 	}
+	@debug $G-foreground;
 
 	$B-foreground: blue($foreground)/255;
 	@if ( $B-foreground <= 0.03928 ) {
@@ -61,6 +58,7 @@
 	} @else {
 		$B-foreground: pow((($B-foreground+0.055)/1.055), 2.4);
 	}
+	@debug $B-foreground;
 
 	// Calculate the R, G and B components of the background color
 	// in preparation to calculate it's relative luminance
@@ -70,6 +68,7 @@
 	} @else {
 		$R-background: pow((($R-background+0.055)/1.055), 2.4);
 	}
+	@debug $R-background;
 
 	$G-background: green($background)/255;
 	@if ( $G-background <= 0.03928 ) {
@@ -77,6 +76,7 @@
 	} @else {
 		$G-background: pow((($G-background+0.055)/1.055), 2.4);
 	}
+	@debug $G-background;
 
 	$B-background: blue($background)/255;
 	@if ( $B-background <= 0.03928 ) {
@@ -84,6 +84,7 @@
 	} @else {
 		$B-background: pow((($B-background+0.055)/1.055), 2.4);
 	}
+	@debug $B-background;
 
 	// To determine the contrast ratio we need to find out which is the lighter
 	// of the two colors. If the foreground is lighter L1 will use $foreground
@@ -91,50 +92,31 @@
 
 	@if ( $foreground-lightness > $background-lightness ) {
 		$lighten:true;
-		$L1:0.2126 * red($foreground) + 0.7152 * green($foreground) + blue($foreground);
-		$L2:0.2126 * red($background) + 0.7152 * green($background) + blue($background);
+		$L1:(0.2126 * $R-foreground) + (0.7152 * $G-foreground) + (0.0722 * $B-foreground);
+		$L2:(0.2126 * $R-background) + (0.7152 * $G-background) + (0.0722 * $B-background);
+		@debug $L1;
+		@debug $L2;
 	} @else {
 		$lighten:false;
-		$L1:0.2126 * red($background) + 0.7152 * green($background) + blue($background);
-		$L2:0.2126 * red($foreground) + 0.7152 * green($foreground) + blue($foreground);
+		$L1:(0.2126 * $R-background) + (0.7152 * $G-background) + (0.0722 * $B-background);
+		$L2:(0.2126 * $R-foreground) + (0.7152 * $G-foreground) + (0.0722 * $B-foreground);
+		@debug $L1;
+		@debug $L2;
 	}
 
 	// If the contrast ratio is sufficient, return early and let the user know
 	@if ( ($L1+0.05) / ($L2+0.05) > $contrast-ratio ) {
-		@warn 'Your contrast is all good';
-		@return true;
+		@warn 'Your contrast ratio of ' + (($L1+0.05) / ($L2+0.05)) + ' is all good';
+		@return $foreground;
 	} @else {
-		@warn 'Your contrast ratio of ' + ($L1+0.05) / ($L2+0.05) + ' is too low';
-		$adjusted: $L2 * $contrast-ratio;
-		$delta: $adjusted - $L1;
-		$percent: ($delta / $L1) * 100%;
-		@debug $percent; // this is where the issues are!!!
-		@if ( $percent > 100% ) { $percent:100%; }
-		@if ( $percent < 0% ) { $percent:0%; }
-
-		@if ( $lighten ) {
-			$white: lighten($foreground, $percent);
-			@if ( $white == white ) {
-				$foreground: #000;
-			} @else {
-				$foreground: lighten($foreground, $percent);
-			}
-		} @else {
-			$darken: darken($foreground, $percent);
-			@if ( $darken == black ) {
-				$foreground: #fff;
-			} @else {
-				$foreground: darken($foreground, $percent);
-			}
-		}
-		@warn 'Setting foreground to: ' + $foreground;
+		@warn 'Your contrast ratio of ' + (($L1+0.05) / ($L2+0.05)) + ' is too low';
 		@return $foreground;
 	}
 
 	@return $foreground;
 }
-$light:#ef9d9d;
-$dark:#447841;
+$light:#666;
+$dark:#000;
 
 $call-out-color:$dark;
 $call-out-background:$light;
