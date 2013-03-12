@@ -1,0 +1,118 @@
+// contrast ratio (L1 + 0.05) / (L2 + 0.05)
+// L1 is the relative luminance of lighter color
+// L2 is the relative luminance of the darker color
+
+// Relative luminance
+// L = 0.2126 * R + 0.7152 * G + 0.0722 * B where
+// if RsRGB <= 0.03928 then R = RsRGB/12.92 else R = ((RsRGB+0.055)/1.055) ^ 2.4
+// if GsRGB <= 0.03928 then G = GsRGB/12.92 else G = ((GsRGB+0.055)/1.055) ^ 2.4
+// if BsRGB <= 0.03928 then B = BsRGB/12.92 else B = ((BsRGB+0.055)/1.055) ^ 2.4
+// RsRGB = R8bit/255
+// GsRGB = G8bit/255
+// BsRGB = B8bit/255
+
+// AA rating contrast ratio: 9:2
+// AAA rating contrast ratio: 7:1
+
+@function checkContrast($foreground, $background, $level:AA){
+	$foreground-lightness: lightness($foreground);
+	$background-lightness: lightness($background);
+	$L1: null;
+	$L2: null;
+	$contrast-ratio:4.5;
+	@if ( $level == 'AAA' ) {
+		$contrast-ratio:7;
+	}
+
+	//*************************
+	// $$ RGB
+	//**************************
+
+
+
+	$R-foreground: red($foreground)/255;
+	@debug $R-foreground;
+	@if ( $R-foreground <= 0.03928 ) {
+		$R-foreground: $R-foreground/12.92;
+	} @else {
+		$R-foreground: (($R-foreground+0.055)/1.055)*(($R-foreground+0.055)/1.055)*((($R-foreground+0.055)/1.055)*1.4);
+	}
+	@debug $R-foreground;
+
+	$G-foreground: green($foreground)/255;
+	@if ( $G-foreground <= 0.03928 ) {
+		$G-foreground: $G-foreground/12.92;
+	} @else {
+		$G-foreground: (($G-foreground+0.055)/1.055)*(($G-foreground+0.055)/1.055)*((($G-foreground+0.055)/1.055)*1.4);
+	}
+	@debug $G-foreground;
+
+	$B-foreground: blue($foreground)/255;
+	@if ( $B-foreground <= 0.03928 ) {
+		$B-foreground: $B-foreground/12.92;
+	} @else {
+		$B-foreground: (($B-foreground+0.055)/1.055)*(($B-foreground+0.055)/1.055)*((($B-foreground+0.055)/1.055)*1.4);
+	}
+	@debug $B-foreground;
+
+	$R-background: red($background)/255;
+	@if ( $R-background <= 0.03928 ) {
+		$R-background: $R-background/12.92;
+	} @else {
+		$R-background: (($R-background+0.055)/1.055)*(($R-background+0.055)/1.055)*((($R-background+0.055)/1.055)*1.4);
+	}
+	@debug $R-background;
+
+	$G-background: green($background)/255;
+	@if ( $G-background <= 0.03928 ) {
+		$G-background: $G-background/12.92;
+	} @else {
+		$G-background: (($G-background+0.055)/1.055)*(($G-background+0.055)/1.055)*((($G-background+0.055)/1.055)*1.4);
+	}
+	@debug $G-background;
+
+	$B-background: blue($background)/255;
+	@if ( $B-background <= 0.03928 ) {
+		$B-background: $B-background/12.92;
+	} @else {
+		$B-background: (($B-background+0.055)/1.055)*(($B-background+0.055)/1.055)*((($B-background+0.055)/1.055)*1.4);
+	}
+	@debug $B-background;
+
+	//*************************
+	// $$ logic
+	//**************************
+
+	@if ( $foreground-lightness > $background-lightness ) {
+
+		$L1:0.2126 * red($foreground) + 0.7152 * green($foreground) + blue($foreground);
+		$L2:0.2126 * red($background) + 0.7152 * green($background) + blue($background);
+		@if ( ($L1+0.05) / ($L2+0.05) > $contrast-ratio ) {
+			@debug 'Your contrast is all good';
+			@return true;
+		} @else {
+			@debug 'Your contrast is not high enough';
+		// if it's not high enough, brighten the text to til the correct ratio
+		// is reached using the same hue and saturation
+		}
+	} @else {
+		@debug 'foreground is darker than background';
+		$L1:0.2126 * red($background) + 0.7152 * green($background) + blue($background);
+		$L2:0.2126 * red($foreground) + 0.7152 * green($foreground) + blue($foreground);
+		// if the text is darker than the bg, check the ratio
+		// if it's not high enough, darken the text to til the correct ratio
+		// is reached using the same hue and saturation
+	}
+	@return $foreground;
+}
+$call-out-color:#eee;
+$call-out-background:#f60;
+
+.call-out {
+	margin:1em 0;
+	padding:1em;
+
+	color:checkContrast($call-out-color, $call-out-background);
+	background:$call-out-background;
+}
+
