@@ -1,6 +1,6 @@
 // Calculate the contrast ratio between foreground and background colors
 // using the W3C standards. If the contrast is not high enough, suggest
-// an alternative by lightening or darkening the foreground color accordingly
+// checking out http://leaverou.github.com/contrast-ratio/ for a visualisation
 
 // Contrast ratio = (L1 + 0.05) / (L2 + 0.05)
 // L1 is the relative luminance of lighter color
@@ -25,11 +25,11 @@
 	// foreground is brighter or darker than the background
 	$foreground-lightness: lightness($foreground);
 	$background-lightness: lightness($background);
-	$lighten:null;
 	$L1: null;
 	$L2: null;
 	// The default contrast ratio is 2:9
 	$contrast-ratio:4.5;
+	// To pass WCAG 2.0 Advanced, the default ratio is 7:1
 	@if ( $level == 'AAA' ) {
 		$contrast-ratio:7;
 	}
@@ -42,7 +42,6 @@
 	} @else {
 		$R-foreground: pow((($R-foreground+0.055)/1.055), 2.4);
 	}
-	@debug $R-foreground;
 
 	$G-foreground: green($foreground)/255;
 	@if ( $G-foreground <= 0.03928 ) {
@@ -50,7 +49,6 @@
 	} @else {
 		$G-foreground: pow((($G-foreground+0.055)/1.055), 2.4);
 	}
-	@debug $G-foreground;
 
 	$B-foreground: blue($foreground)/255;
 	@if ( $B-foreground <= 0.03928 ) {
@@ -58,7 +56,6 @@
 	} @else {
 		$B-foreground: pow((($B-foreground+0.055)/1.055), 2.4);
 	}
-	@debug $B-foreground;
 
 	// Calculate the R, G and B components of the background color
 	// in preparation to calculate it's relative luminance
@@ -68,7 +65,6 @@
 	} @else {
 		$R-background: pow((($R-background+0.055)/1.055), 2.4);
 	}
-	@debug $R-background;
 
 	$G-background: green($background)/255;
 	@if ( $G-background <= 0.03928 ) {
@@ -76,7 +72,6 @@
 	} @else {
 		$G-background: pow((($G-background+0.055)/1.055), 2.4);
 	}
-	@debug $G-background;
 
 	$B-background: blue($background)/255;
 	@if ( $B-background <= 0.03928 ) {
@@ -84,48 +79,41 @@
 	} @else {
 		$B-background: pow((($B-background+0.055)/1.055), 2.4);
 	}
-	@debug $B-background;
 
 	// To determine the contrast ratio we need to find out which is the lighter
 	// of the two colors. If the foreground is lighter L1 will use $foreground
 	// otherwise L1 will use $background
 
 	@if ( $foreground-lightness > $background-lightness ) {
-		$lighten:true;
 		$L1:(0.2126 * $R-foreground) + (0.7152 * $G-foreground) + (0.0722 * $B-foreground);
 		$L2:(0.2126 * $R-background) + (0.7152 * $G-background) + (0.0722 * $B-background);
-		@debug $L1;
-		@debug $L2;
 	} @else {
-		$lighten:false;
 		$L1:(0.2126 * $R-background) + (0.7152 * $G-background) + (0.0722 * $B-background);
 		$L2:(0.2126 * $R-foreground) + (0.7152 * $G-foreground) + (0.0722 * $B-foreground);
-		@debug $L1;
-		@debug $L2;
 	}
 
 	// If the contrast ratio is sufficient, return early and let the user know
 	@if ( ($L1+0.05) / ($L2+0.05) > $contrast-ratio ) {
 		@warn 'Your contrast ratio of ' + (($L1+0.05) / ($L2+0.05)) + ' is all good';
-		@return $foreground;
+		@return true;
 	} @else {
-		@warn 'Your contrast ratio of ' + (($L1+0.05) / ($L2+0.05)) + ' is too low';
-		@return $foreground;
+		@warn '
+	Your contrast ratio of ' + (($L1+0.05) / ($L2+0.05)) + ' is too
+	low to meet WCAG 2.0. Should be: ' + $contrast-ratio;
+		@debug '
+	Check out http://leaverou.github.com/contrast-ratio/ for a visualisation';
+		@return false;
 	}
-
-	@return $foreground;
 }
-$light:#666;
-$dark:#000;
-
-$call-out-color:$dark;
-$call-out-background:$light;
+$color-dark:#31822c;
+$color-light:#21ffff;
 
 .call-out {
 	margin:1em 0;
 	padding:1em;
 
-	color:checkContrast($call-out-color, $call-out-background);
-	background:$call-out-background;
+	color:$color-light;
+	background:$color-dark;
+	_contrast:checkContrast($color-light, $color-dark);
 }
 
