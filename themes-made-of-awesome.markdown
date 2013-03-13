@@ -662,3 +662,84 @@ tweaked version of an image with slightly different dimensions than before. It's
 an easy win, every time.
 
 ### Sprites
+
+Before we finish up bringing this all back to WordPress, I want to show you the
+thing about Compass that blew my mind. We've seen how we can organise our code,
+write things more modularly and save ourselves some key strokes by taking
+advantage of Compass' mixins. But this one is a double whammy - it's a time
+saver and a performance boost and it all happens automagically.
+
+Let's go way back to our example of `@each` loops and the social buttons. We had
+a loop that output some code that looks like this:
+
+	// .share-twitter     { background:url('../images/twitter-icon.png'); }
+	// .share-facebook    { background:url('../images/facebook-icon.png'); }
+	// .share-google-plus { background:url('../images/google-plus-icon.png'); }
+	// .share-pinterest   { background:url('../images/pinterest-icon.png'); }
+	// .share-dribble     { background:url('../images/dribble-icon.png'); }
+	// .share-youtube     { background:url('../images/youtube-icon.png'); }
+
+Now, as you probably know, having 6 different images used for each of these
+share buttons is not best practice; we make 6 HTTP requests whereas we could
+combine all these images into a sprite sheet. You've no-doubt done it for a
+similar purpose at some point. If you've got uniform sized icons it's not too
+bad because you can do the math, but when the pieces of your sprite-sheet get
+complex, it can start to get messy. Plus, if you want to make a change or (god
+forbid) add a new load of icons, you have to re-do a lot more. 
+
+Enter Compass.
+
+If you correctly set the `images` directory in your `config.rb` and make a
+sub-directory called `share` and save each of your social icons into this
+directory, you can tell Compass to generate a sprite sheet for you. You can then
+make it so you have a series of CSS class names available to you to add your
+social buttons wherever you please.
+
+	$share-sprite-dimensions: true;
+	@import "share/*.png";
+	@include all-share-sprites;
+
+The first line tells Compass that you would like the dimensions added to each
+class name. The second line tells Compass where to look for your images. The
+third line `@includes` them much like you would a mixin or `@extend`.
+
+You will now have a generated list of classes that look like this:
+
+	.share-sprite, 
+	.share-twitter-icon, 
+	.share-facebook-icon,
+	.share-google-plus-icon,
+	.share-pinterest-icon,
+	.share-dribble-icon,
+	.share-youtube-icon {
+		background: url('/images/share-s018a999c25.png') no-repeat;
+	}
+
+	.share-twitter-icon {
+		background-position: 0 0;
+		height: 25px;
+		width: 25px;
+	}
+	.share-facebook-icon {
+		background-position: -25px 0;
+		height: 25px;
+		width: 25px;
+	}
+	// etc.
+
+Each image is given a class made up of the image file prefixed with the
+directory name. They each share the generated sprite sheet URL and all the
+background positions and dimensions have been calculated for you. 
+
+Using one of these icons is as simple as:
+
+	<a class="share-twitter-icon text-replace" href="#">twitter</a>
+
+If you want to use a sprite image without adding it as a class in the HTML, you
+can reference it in the SCSS as follows:
+
+	.twitter {
+		background: sprite($share, twitter) no-repeat;
+	}
+
+Spriting with Compass is awesome. I'd highly recommend giving it a go!
