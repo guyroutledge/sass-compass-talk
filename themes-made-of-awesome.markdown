@@ -743,3 +743,52 @@ can reference it in the SCSS as follows:
 	}
 
 Spriting with Compass is awesome. I'd highly recommend giving it a go!
+
+## What about WordPress?
+
+I know we've focused a lot on the features of SASS and Compass here, but there
+are a lot of them. However, to wrap up, let's look a bit more at how using these
+frameworks with WordPress can help you make awesome themes.
+
+Really the only requirements for using SASS/Compass are that you have Ruby
+installed and are developing locally. Because SASS has to compile, it's not
+going to be easy to work with if you are going commando on a server and editing
+files over FTP. Working locally has a whole heap of benefits including speed,
+security and potential for version control - but that's a whole other talk. 
+
+If you are developing themes to sell, you might think that having them build on
+a SASS foundation means only people savvy with SASS will be able to use them.
+However, there's no reason that you can't build with SASS/Compass and deliver
+your them with just the compiled CSS - I'd recommend you keep copies of all the
+partials for future updates, of course. This gives you all the benefits of
+enhanced workflow but you don't need to worry about alienating your market. On
+the other hand, there are plenty of SASS themes out there so it's probably no
+bad thing - you could almost sell it as an extra feature...
+
+There is a [Wordpress SASS][11] plugin out there for compiling SASS from within the WP-admin using a
+PHP compiler. I've not tested this but there's something about it that doesn't
+sound quite right - I thought it was worth mentioning anyway, in case you're
+stuck and need a more WordPress-like solution.
+
+[11]:http://wordpress.org/extend/plugins/wordpress-sass
+
+Modular / Widget style development
+
+A starter theme for WP and SASS
+https://github.com/eddiemachado/bones
+http://themble.com/bones/
+
+A CLI for bundling themes that use SASS
+http://forge.thethemefoundry.com/
+
+
+## Resources
+
+SASS: http://www.sass-lang.com
+Compass: http://www.compass-style.org
+The SASS Way: http://www.thesassway.com
+SASS Cast: http://sasscast.tumblr.com/
+
+@guyroutledge
+http://www.guyroutledge.co.uk
+
