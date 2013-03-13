@@ -1,0 +1,114 @@
+// Demo of Compass transform mixin compared to longhand vanilla CSS way
+
+	// This is boring to type out
+	.rotated {
+		-webkit-transform: rotate(5deg);
+		   -moz-transform: rotate(5deg);
+			 -o-transform: rotate(5deg);
+			-ms-transform: rotate(5deg);
+				transform: rotate(5deg);
+	}
+
+	// This is super fast
+	.rotated-efficiently {
+		@include rotate(5deg);
+	}
+
+//--------------------------------------------------------
+
+// Striped table mixin example
+
+table {
+	@include alternating-rows-and-columns(#fff, #eee, #666);
+}
+
+// For a behind the scenes peek at the mixin that generates this,
+// take a look below:
+/*
+@mixin alternating-rows-and-columns($even-row-color, $odd-row-color, $dark-intersection, $header-color: white, $footer-color: white) {
+	th {
+		background-color: $header-color;
+		&.even, &:nth-child(2n) {
+			background-color: $header-color - $dark-intersection;
+		}
+	}
+	tr {
+		&.odd, &:nth-child(2n+1) {
+			td {
+				background-color: $odd-row-color;
+				&.even, &:nth-child(2n) {
+					background-color: $odd-row-color - $dark-intersection;
+				}
+			}
+		}
+	}
+	tr.even {
+		td {
+			background-color: $even-row-color;
+			&.even, &:nth-child(2n) {
+				background-color: $even-row-color - $dark-intersection;
+			}
+		}
+	}
+	tfoot {
+		th, td {
+			background-color: $footer-color;
+			&.even, &:nth-child(2n) {
+				background-color: $footer-color - $dark-intersection;
+			}
+		}
+	}
+}
+*/
+
+//---------------------------------------------
+
+// Full Grid generating mixin
+// view on github at http://www.github.com/guyroutledge/CompassGrid
+
+@mixin generate-grid($_cols, $_width, $_gutters, $_grid_wrapper:grids, $_guides:false, $_color:red) {
+	$_total: $_cols * ($_width + $_gutters);
+	$_margin: ($_gutters / $_total) * 100;
+
+	[class^="grid-"] {
+    	float:left;
+    	margin: 0 (1% * $_margin) 0 0;
+	}
+
+	.#{$_grid_wrapper} {
+		clear:both;
+		width:auto;
+	    margin:0 0 0 (-1%*$_margin);
+	    overflow:hidden; /* clear the floats */
+
+	    [class^=grid-] {
+	        float:left;
+	        margin:0 0 0 (1% * $_margin);
+	    }
+
+		@for $i from 1 through $_cols {
+		  .grid-#{$i} {
+		  	width: ((($_width * $i) + ($_gutters * ($i - 1)))/$_total)*100%;
+		  }
+		}
+	}
+
+	@if $_guides == true {
+		$_guideWidth: ($_width + $_gutters) / $_total * 100;
+		$_stop: $_width / ($_width + $_gutters);
+		.#{$_grid_wrapper} {
+			position:relative;
+		}
+		.#{$_grid_wrapper}:after {
+			content: "";
+			position:absolute;
+			top:0; left:0; bottom:0; right:0;
+			@include background-image(linear-gradient(left, $_color 0, $_color $_stop, #fff $_stop, #fff 100%));
+		  	background-position:($_margin * 1%) 0;
+		  	background-size: ($_guideWidth * 1%) 100%;
+			opacity:0.1;
+		}
+	}
+}
+// Useage:
+@include generate-grid(12, 60, 20);
