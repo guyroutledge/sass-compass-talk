@@ -2,13 +2,38 @@
 // $$ Custom Styles for Slides
 //**************************
 
-hgroup .small { font-size:0.5em; }
+.reveal {
+	hgroup .small { font-size:0.5em; }
 
-.column-left,
-.column-right {
-	width:45%;
+	.column-left,
+	.column-right {
+		width:45%;
+	}
+	.column-left { float:left; }
+	.column-right { float:right; }
+
+	pre code { padding:20px; }
+
+	.helper-apps {
+		position:relative;
+		height:600px;
+	}
+	.app {
+		position:absolute;
+		a { font-size:0.5em; }
+		img { margin:0 0 -0.5em; border:0; }
+	}
+	.app:nth-child(2) { top:350px; left:90px; }
+	.app:nth-child(3) { top:480px; left:300px; }
+	.app:nth-child(4) { top:300px; right:90px; }
+	.app:nth-child(5) { top:170px; left:400px; }
+	.app:nth-child(6) { top:130px; left:150px; }
+	.app:nth-child(7) { top:440px; right:120px; }
+
+	.code-centered {
+		display:inline-block;
+		width:auto;
+		margin:0 auto;
+	}
 }
-.column-left { float:left; }
-.column-right { float:right; }
 
-.reveal pre code { padding:20px; }
