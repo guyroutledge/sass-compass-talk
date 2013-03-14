@@ -1,0 +1,14 @@
+//*************************
+// $$ Custom Styles for Slides
+//**************************
+
+hgroup .small { font-size:0.5em; }
+
+.column-left,
+.column-right {
+	width:45%;
+}
+.column-left { float:left; }
+.column-right { float:right; }
+
+.reveal pre code { padding:20px; }
