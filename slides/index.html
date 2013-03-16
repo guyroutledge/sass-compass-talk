@@ -59,10 +59,9 @@
 					<p class="fragment roll-in">Where: <a href="https://github.com/guyroutledge/sass-compass-talk">https://github.com/guyroutledge/sass-compass-talk</a></p>
 				</section>
 
-				<!-- Example of nested vertical slides -->
 				<section>
 					<section>
-						<h2>What is SASS?</h2>
+						<h1>What is SASS?</h1>
 						<p class="fragment roll-in">SASS is a CSS pre-processor</p>
 						<p class="fragment roll-in">A layer on top of CSS</p>
 						<p class="fragment roll-in">Makes building websites <b>faster</b>,
@@ -111,7 +110,7 @@
 				</section>
 				<section>
 					<section>
-						<h2>How do I get it?</h2>
+						<h1>How do I get it?</h1>
 					</section>
 					<section class="helper-apps">
 						<h2>All these apps help you use SASS</h2>
@@ -147,10 +146,62 @@
 				</section>
 				<section>
 					<section>
-						<h2>How do I use it (with WordPress)?</h2>
+						<hgroup>
+							<h1>How do I use it</h1>
+							<h2>(with WordPress)?</h2>
+						</hgroup>
 					</section>
 					<section>
 						<h2>WordPress and <code>style.css</code></h2>
+						<p><code>style.css</code> is key for WordPress themes</p>
+						<p>Rename <code>style.css</code> to <code>style.scss</code> and write SASS</p>
+					</section>
+					<section>
+						<h2>Tell SASS to <code>watch</code> for changes</h2>
+						<pre><code>$ cd path/to/theme
+$ mv style.css style.scss
+$ sass watch --style.scss:style.css</code></pre>
+					</section>
+					<section>
+						<h2>Keep the comments in tact</h2>
+						<p>Begin writing your SASS beneath the theme info</p>
+						<p>To make sure SASS doesn't remove your comments:</p>
+						<pre><code>/*!
+Theme Name: SASSY Theme
+...
+*/</code></pre>
+						<p><small>source: <a href="http://css-tricks.com/compass-compiling-and-wordpress-themes/">http://css-tricks.com/compass-compiling-and-wordpress-themes/</a></small></p>
+					</section>
+					<section>
+						<h2>A more flexible &amp; organised approach</h2>
+						<p>Keep your SASS files separate</p>
+						<p>Tell SASS to watch a directory of SASS files</p>
+						<pre><code>sass --watch scss:css</code></pre>
+					</section>
+					<section>
+						<h2>SASS compiles your .scss to .css</h2>
+						<p><img src="img/directory-structure-scss.jpg" height="173"></p>
+						<p><img src="img/directory-structure-css.jpg" height="173"></p>
+					</section>
+					<section>
+						<h2>Use the compiled stylesheet</h2>
+						<p>To use the compiled stylesheet:</p>
+						<pre><code>&lt;?php
+  wp_enqueue_style(
+    'global-styles',
+    get_template_directory_uri() . '/css/screen.css',
+    null,
+    '1.0',
+    'screen'
+  );
+?&gt;</code></pre>
+					</section>
+					<section>
+						<h2>But what about <code>style.css</code>?</h2>
+						<p><code>style.css</code> is only required for theme information</p>
+						<p>There's no need to include it in your <code>&lt;head&gt;</code></p>
+						<p>Doing so would incurr an extra HTTP request</p>
+					</section>
 				</section>
 
 				<section>
