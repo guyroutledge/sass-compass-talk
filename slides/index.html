@@ -205,10 +205,143 @@ Theme Name: SASSY Theme
 				</section>
 
 				<section>
-					<h2>Point of View</h2>
-					<p>
-						Press <strong>ESC</strong> to enter the slide overview. Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
-					</p>
+					<section>
+						<h1>What does SASS do?</h1>
+					</section>
+					<section>
+						<h2>Organisation</h2>
+						<p class="fragment roll-in"><small><a href="https://github.com/guyroutledge/sass-compass-talk/blob/master/scss/screen.scss">https://github.com/guyroutledge/sass-compass-talk/blob/master/scss/screen.scss</a></small></p>
+					</section>
+					<section>
+						<h2>SASS Partials</h2>
+						<p><code>partials</code> help split your styles into maintainable chunks</p>
+						<p>These are <code>@import</code>-ed into a SASS stylesheet</p>
+						<p>Partials are prefixed with an <code>_</code></p>
+						<p><img src="img/directory-structure-partials.jpg"></p>
+					</section>
+					<section>
+						<h2>Create a global stylesheet</h2>
+						<pre><code>// In global.scss
+// Partials for global styles to be compiled to global.css
+
+@import "global-reset";
+@import "global-grid";
+@import "global-typography";
+@import "global-header";
+@import "global-footer";
+@import "global-sidebar";
+@import "global-forms";
+@import "global-buttons";</code></pre>
+						<p><small>You could use a naming convention like above<br>
+						although I tend to break related partials into directories</small></p>
+					</section>
+					<section>
+						<h2>Creating multiple compiled stylesheets</h2>
+						<p>If you have a big website, consider multiple stylesheets</p>
+						<p>Users only download what they need when they need it</p>
+						<p>Any changes to your stylesheet will break the cache</p>
+						<p>so having one massive stylesheet <em>can</em> be bad for performance</p>
+					</section>
+					<section>
+						<h2>Variables</h2>
+						<p><small><a href="https://github.com/guyroutledge/sass-compass-talk/blob/master/scss/_variables.scss">https://github.com/guyroutledge/sass-compass-talk/blob/master/scss/_variables.scss</a></small></p>
+					</section>
+					<section>
+						<h2>Storing re-useable values in variables</h2>
+						<p>Some common things variables are used for:</p>
+						<ul>
+							<li>Colors</li>
+							<li>Global spacing (margins, padding)</li>
+							<li>Font-stacks</li>
+							<li>Paths to images</li>
+							<li>Dimensions (width, height)</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Declaring variables</h2>
+						<p>Variables are declared using the <code>$</code> sign</p>
+						<pre><code>$variable-name: 'variable value';</code></pre>
+					</section>
+					<section>
+						<h2>Variable Types</h2>
+						<p>Variables can have the following types:</p>
+						<ul>
+							<li>String</li>
+							<li>Number</li>
+							<li>Colour</li>
+							<li>Booleans (true or false)</li>
+							<li>List</li>
+							<li>Null</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Using a naming convention</h2>
+						<p>I tend to use a prefix to indicate what a variable is for</p>
+						<div class="column-left">
+							<pre><code>  // this is confusing
+  $red: #c30;
+  $padding: 2em;
+  .module {
+    width:50%;
+    padding:$padding;
+    margin:$padding; // wtf?
+    color:$red;
+  }</code></pre>
+					</div>
+					<div class="column-right">
+							<pre><code>// this is clearer
+  $color-dark-red: #c30;
+  $global-spacing: 2em;
+  .module {
+    width:50%;
+    padding:$global-spacing;
+    margin:$global-spacing;
+    color:$color-dark-red;
+  }</code></pre>
+						</div>
+  					</section>
+					<section>
+						<h2>Nesting</h2>
+						<p class="fragment roll-in">Nesting allows you to write less.</p>
+						<p><small><a href="https://github.com/guyroutledge/sass-compass-talk/blob/master/scss/_nesting.scss">https://github.com/guyroutledge/sass-compass-talk/blob/master/scss/_nesting.scss</a></small></p>
+					</section>
+					<section>
+						<h2>Navigation styles in Vanilla CSS</h2>
+						<pre><code>.main-nav               { /* styles */ }
+.main-nav ul            { /* styles */ }
+.main-nav ul li         { /* styles */ }
+.main-nav ul li a       { /* styles */ }
+.main-nav ul li a:hover { /* styles */ }
+.ie8 .main-nav          { /* styles */ }</code></pre>
+					</section>
+					<section>
+						<h2>Navigation styles in SASS</h2>
+
+						<pre><code>.main-nav {
+    // styles
+    ul {
+      // styles
+      li {
+        // styles
+        a {
+          // styles
+          &:hover {
+            // styles
+          }
+        }
+      }
+    }
+    .ie8 & {
+      // styles
+    }
+  }</code></pre>
+					</section>
+					<section>
+						<h2 class="warning">Warning</h2>
+						<img src="img/inception.jpg" alt="Avoid SASS inception">
+						<p>If you're nesting more than 3 levels deep<br>
+						you probably need to refactor your styles</p>
+					</section>
 				</section>
 
 				<section>
