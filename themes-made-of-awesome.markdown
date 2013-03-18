@@ -410,7 +410,7 @@ find out:
 	$color-foreground:null;
 
 	@if ( lightness($color-background) > (lightness(#fff) + lightness(#000))/2 ) {
-		color-forground:#000;
+		$color-forground:#000;
 	} @else {
 		$color-foreground:#fff;
 	}
@@ -449,7 +449,7 @@ fine-grained control of how the counter variable ($i) changes:
 		column-#{$i}-of-4 { 
 			width: $i * 25%;
 		}
-		$i: $i + 1;
+		$i: $i + 2;
 	}
 
 The difference here is that we have to specify how we want $i to be modified so
