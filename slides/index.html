@@ -394,9 +394,71 @@ Theme Name: SASSY Theme
 					</section>
 					<section>
 						<h2>Extends &amp; Silent Classes</h2>
+						<p class="fragment roll-in">Variables and mixins break
+						up styles into re-usable chunks.<br>
+						<code>@extend</code> allows us to use those chunks as
+						building blocks</p>
 						<p><small><a
 								href="https://github.com/guyroutledge/sass-compass-talk/blob/master/scss/_extends.scss">https://github.com/guyroutledge/sass-compass-talk/blob/master/scss/_extends.scss</a></small></p>
+					</section>
+					<section>
+						<h2>SASS and Modular CSS</h2>
+						<p>A concept in <a href="http://oocss.org/">OOCSS</a> or
+						<a href="http://smacss.com/">SMACSS</a> is the idea of
+						base classes or modules that are extended with numerous
+						classes</p>
+						<pre><code> &lt;a class="button button-large button-error" href="/help"&gt;Help!&lt;/a&gt;</code></pre>
+						<p>&nbsp;</p>
+						<p class="fragment roll-in">This is all well and good - but we can do better with SASS</p>
+					</section>
+					<section>
+						<h2>Placeholder Classes</h2>
+						<p>You will no doubt be familiar with these basic selectors</p>
+						<pre><code>a { }             /* element selector */
+.button { }       /* class selector */
+#button-large { } /* ID selector */</code></pre>
+						<div class="fragment roll-in">
+							<p>&nbsp</p>
+							<p>But SASS gives us this 'silent' class to use as well:</p>
+							<pre><code>%button-large { font-size:3em; }</code></pre>
+						</div>
+					</section>
+					<section>
+						<h2>Silent What?</h2>
+						<p>Any classes prefixed with a <code>%</code> are not
+						compiled but they are available to you through the
+						<code>@extend</code> feature.</p>
+					</section>
+					<section>
+						<h2>Using <code>@extend</code></h2>
+						<pre><code>  %button {
+    display:inline-block;
+    margin:1em 0;
+    padding:1em 2em;
 
+    color:#fff;
+    font-size:1em;
+    background:#eee;
+  }
+  %button-large { font-size:3em; }
+
+  .comment-submit-button {
+    @extend %button;
+    @extend %button-large;
+  }</code></pre>
+					</section>
+					<section>
+						<h2>Benefits of <code>@extend</code></h2>
+						<ul>
+							<li>Create classes named by meaning, rather than styling</li>
+							<li>Make markup more human readable</li>
+							<li>Reduce presentational classnames</li>
+							<li>Make stuff more modular by creating re-usable
+							components</li>
+							<li>Keep the output CSS smaller as these silent classes don't compile</li>
+							<li>Smaller files means faster websites</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>

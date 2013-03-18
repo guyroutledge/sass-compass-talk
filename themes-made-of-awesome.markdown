@@ -307,7 +307,7 @@ styles into reusable components that are applied as classes in your HTML - and
 not just a single class on an element but perhaps many of them; a base module
 followed by modifiers. For example:
 
-	<a class="button button-large button-error" href="/help">Fail!</a>
+	<a class="button button-large button-error" href="/help">Help Me!</a>
 
 This is all well and good but it might be neater if there weren't three
 presentational class names on our link. Enter `@extend` and `silent placeholder
@@ -337,7 +337,7 @@ it to `@extend` an existing selector.
 	}
 	%button-large { font-size:3em; }
 
-	.feature-button {
+	.comment-submit-button {
 		@extend %button;
 		@extend %button-large;
 	}
