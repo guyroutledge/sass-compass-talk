@@ -342,6 +342,61 @@ Theme Name: SASSY Theme
 						<p>If you're nesting more than 3 levels deep<br>
 						you probably need to refactor your styles</p>
 					</section>
+					<section>
+						<h2>Mixins</h2>
+						<p class="fragment roll-in">Mixins allow you to reuse chunks of styles</p>
+						<p><small><a href="https://github.com/guyroutledge/sass-compass-talk/blob/master/scss/_mixins.scss">https://github.com/guyroutledge/sass-compass-talk/blob/master/scss/_mixins.scss</a></small></p>
+					</section>
+					<section>
+						<h2>Mixins accept arguments</h2>
+						<pre><code>  @mixin button($background, $foreground, $font-size:1em){
+    display:inline-block;
+    padding:0.5em 1em;
+
+    color:$foreground;
+    font-size:$font-size;
+    font-family:$font-brand;
+
+    background:$background;
+  }
+  .button {
+    @include button(blue, white);
+  }
+  .button-error {
+    @include button(#f90, white, 2em);
+    box-shadow:0px 0px 5px rgba(red, 0.3);
+  }</code></pre>
+					</section>
+					<section>
+						<h2>Use mixins to re-use the <code>@content</code></h2>
+						<div class="column-left">
+							<pre><code>@mixin placeholder() {
+  ::-webkit-input-placeholder {
+    @content;
+  }
+  ::-moz-placeholder {
+    @content;
+  }
+  :-moz-placeholder {
+    @content;
+  }
+  :-ms-input-placeholder {
+    @content;
+  }
+}</code></pre>
+						</div>
+						<div class="column-right">
+							<pre><code>@include placeholder {
+  color:#ccc;
+  font-style:italic;
+}</code></pre>
+					</div>
+					</section>
+					<section>
+						<h2>Extends &amp; Silent Classes</h2>
+						<p><small><a
+								href="https://github.com/guyroutledge/sass-compass-talk/blob/master/scss/_extends.scss">https://github.com/guyroutledge/sass-compass-talk/blob/master/scss/_extends.scss</a></small></p>
+
 				</section>
 
 				<section>
