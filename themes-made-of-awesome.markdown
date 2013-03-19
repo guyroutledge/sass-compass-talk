@@ -502,56 +502,6 @@ sounds very similar to my definition of SASS so the best thing to do is
 demo exactly *what* this enhanced version of SASS can do...
 
 
-### How do I get it?
-
-First off, we better install it. Remember how easy it was to install SASS? Well,
-Compass is pretty much the same deal:
-
-	sudo gem install compass
-
-When that has installed (along with it's documentation) you're all set to create
-a Compass project.
-
-	cd /path/to/theme
-	compass create --sass-dir=scss --css-dir=css
-	compass watch
-
-You now have all the power of Compass at your fingertips.
-
-Compass will create your directory structure as defined by the `--sass-dir` and
-`--css-dir` options. You can leave these blank and Compass will use it's
-defaults - I just prefer this naming over `sass` and `stylesheets` which are the
-defaults.
-
-To tell Compass to watch for changes, just type `compass watch`. You can also
-issue the command `compass compile` which will compile everything once but not
-watch for further changes.
-
-#### Compass Config
-
-Compass creates a configuration file called `config.rb` in your project
-root. This is where you can change the paths to your `scss` and `css`
-directories as well as tell compass where your HTTP root, images and javascript
-folders are. 
-
-Here is also where you can control the output of the compiled CSS. The options
-are `:expanded`, `:nested`, `:compact` or `:compressed`.
-
-During development, I'd recommend to use the `:expanded` setting - this will
-leave plenty of whitespace and helpful comments in the compiled stylesheet that
-can be useful when debugging. 
-
-When putting a site live, I'd recommend the `:compressed` setting which removes
-all inline comments and whitespace, minifying and compressing the file to it's
-smallest possible size - this is great for performance.
-
-All of the [material on github][9] is contained within a Compass project so have
-a play around with the different settings to see which ones you prefer.
-
-Now let's have a look at some of the awesome stuff Compass gives you access
-to...
-
-
 ### Compass Mixins
 
 When we talked about mixins, I showed an example of writing your own mixins to
@@ -575,17 +525,6 @@ There are a couple of caveats in that you need a Compass plugin for animations
 and last time I tried to use a radial gradient the syntax hadn't been updated -
 but for the most part you're all set. 
 
-However, vendor prefixes are a little bit of a boring topic these days. Let's
-quickly look at a couple of examples that are really sweet:
-
-	@include alternating-rows-and-columns($even-row-color, $odd-row-color, $dark-intersection) 
-
-This one-liner produces CSS for a table with alternating coloured rows and
-columns with borders that are a blend of the background and `$dark-intersection`
-variable. You can optionally add a fourth and fifth argument for `$header-color`
-and `$footer-color`. Take a look at the sample code for a glimpse at the awesome
-behind this 1-line include. It's incredible.
-
 There's loads of helper utilities for things like setting all your headings and
 links colors in one fell swoop or adding a clearfix without having to Google for it
 first. There's mixins for horizontal lists, baseline grids, text-replacement and
@@ -596,44 +535,6 @@ As well as all these helpful bits of off-the-shelf goodness, Compass allows you
 to combine it's features with the features of SASS. As such, you can build quite
 complex bits of functionality with little hassle.
 
-	@mixin generate-grid($_cols, $_width, $_gutters, $_grid_wrapper:grids, $_guides:false, $_color:red) {
-		$_total: $_cols * ($_width + $_gutters);
-		$_margin: ($_gutters / $_total) * 100;
-
-		[class^="grid-"] {
-			float:left;
-			margin: 0 (1% * $_margin) 0 0;
-		}
-
-		.#{$_grid_wrapper} {
-			clear:both;
-			width:auto;
-			margin:0 0 0 (-1%*$_margin);
-			overflow:hidden; /* clear the floats */
-
-			[class^=grid-] {
-				float:left;
-				margin:0 0 0 (1% * $_margin);
-			}
-
-			@for $i from 1 through $_cols {
-			.grid-#{$i} {
-				width: ((($_width * $i) + ($_gutters * ($i - 1)))/$_total)*100%;
-			}
-			}
-		}
-	}
-
-The above mixin will build a fluid grid for responsive design with any
-combination of columns, column widths and gutter widths you can think of. It's
-similar to 960.gs and based on an old grids generator from CSS-Wizardry. There's
-code up for grabs on [my github profile][11].
-
-To use it just call 
-
-	@include generate-grid(12, 60, 20);
-
-And you'll get a pretty familiar 12 column fluid grid. Awesome.
 
 ### Helper Functions
 
@@ -646,7 +547,7 @@ asset.
 But there are a couple of useful ones that are worth knowing about:
 `image-url()` and `image-dimensions()`.
 
-	$image: image-url(image.png);
+	$image: 'image.png';
 	$padding:20px;
 
 	.element-with-bg-image {

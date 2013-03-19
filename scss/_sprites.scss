@@ -1,0 +1,32 @@
+//*************************
+// $$ Sprites
+//**************************
+
+$share-sprite-dimensions: true;
+@import "share/*.png";
+@include all-share-sprites;
+
+// You should now have a generated list of classes that look like this:
+
+// .share-sprite,
+// .share-twitter-icon,
+// .share-facebook-icon,
+// .share-google-plus-icon,
+// .share-pinterest-icon,
+// .share-dribble-icon,
+// .share-youtube-icon {
+//   background: url('/images/share-s018a999c25.png') no-repeat;
+// }
+//
+// .share-twitter-icon {
+//   background-position: 0 0;
+//   height: 25px;
+//   width: 25px;
+// }
+// .share-facebook-icon {
+//   background-position: -25px 0;
+//   height: 25px;
+//   width: 25px;
+// }
+// etc.
+

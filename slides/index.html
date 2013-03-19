@@ -4,10 +4,9 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+		<title>Themes Made of Awesome with SASS and Compass</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+		<meta name="author" content="Guy Routledge">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -42,31 +41,23 @@
 
 				<section>
 					<hgroup class="main-title">
-					<h1>Themes <span class="small">Made of</span> Awesome</h1>
-						<h3>with SASS and Compass</h3>
+					<h3>Themes made of Awesome with</h3>
+						<h1>SASS <span class="small">&amp;</span> Compass</h1>
 					</hgroup>
 					<p>
 						<small>by <a href="http://www.guyroutldege.co.uk">Guy Routledge</a> |
 						<a href="http://twitter.com/guyroutledge">@guyroutledge</a></small>
 					</p>
+					<p><small>Code and working examples: <br><a href="https://github.com/guyroutledge/sass-compass-talk">https://github.com/guyroutledge/sass-compass-talk</a></small></p>
 				</section>
-
-				<section>
-					<h2>Who? What? Why? Where?</h2>
-					<p class="fragment roll-in">Who: I'm a front-end developer <a href="http://www.twitter.com/bigfishlondon">@bigfishlondon</a></p>
-					<p class="fragment roll-in">What: SASS and Compass and using them with WordPress</p>
-					<p class="fragment roll-in">Why: SASS is awesome and I use it every day</p>
-					<p class="fragment roll-in">Where: <a href="https://github.com/guyroutledge/sass-compass-talk">https://github.com/guyroutledge/sass-compass-talk</a></p>
-				</section>
-
 				<section>
 					<section>
 						<h1>What is SASS?</h1>
-						<p class="fragment roll-in">SASS is a CSS pre-processor</p>
-						<p class="fragment roll-in">A layer on top of CSS</p>
-						<p class="fragment roll-in">Makes building websites <b>faster</b>,
-						<br><b>more maintainable</b><br>
-						and <b>fun</b> again!</p>
+						<p>SASS is a CSS pre-processor</p>
+						<p>A layer on top of CSS</p>
+						<p>(Compass is a layer on top of SASS)</p>
+						<p>They make building websites <b>faster</b>,
+						<br><b>more maintainable</b> and <b>fun</b> again!</p>
 					</section>
 					<section>
 						<h2>Instead of writing CSS, you write SASS</h2>
@@ -119,8 +110,8 @@
 							<a href="http://compass.handlino.com/">http://compass.handlino.com</a>
 						</div>
 						<div class="app">
-							<a class="image" href="mhs.github.com/scout-app/"><img src="img/scout.jpg" alt="Scout App"></a><br>
-							<a href="mhs.github.com/scout-app/">mhs.github.com/scout-app</a>
+							<a class="image" href="http://mhs.github.com/scout-app/"><img src="img/scout.jpg" alt="Scout App"></a><br>
+							<a href="http://mhs.github.com/scout-app/">mhs.github.com/scout-app</a>
 						</div>
 						<div class="app">
 							<a class="image" href="http://hammerformac.com"><img src="img/hammer.jpg" alt="Hammer for Mac"></a><br>
@@ -135,13 +126,13 @@
 							<a href="http://livereload.com/">http://livereload.com/</a>
 						</div>
 						<div class="app">
-							<a class="image" href="http://www.mixture.io"><img src="img/mixture.jpg" alt="Mixture.io"></a><br>
-							<a href="http://www.mixture.io">http://www.mixture.io</a>
+							<a class="image" href="http://mixture.io"><img src="img/mixture.jpg" alt="Mixture.io"></a><br>
+							<a href="http://mixture.io">http://www.mixture.io</a>
 						</div>
 					</section>
 					<section>
 						<h2>Alternatively, the easy way:</h2>
-						<pre class="code-centered"><code>$ sudo gem install sass</code></pre>
+						<pre class="code-centered"><code>$ sudo gem install compass</code></pre>
 					</section>
 				</section>
 				<section>
@@ -152,17 +143,31 @@
 						</hgroup>
 					</section>
 					<section>
+						<h2>Create a Compass Project</h2>
+						<pre><code>$ cd path/to/theme
+$ compass create --sass-dir=scss --css-dir=css
+$ compass watch</code></pre>
+						<p>&nbsp;</p>
+						<p>Whenever you make a change to a <code>.scss</code>
+						file,<br>
+						Compass will compile your CSS automatically.</p>
+					</section>
+					<section>
+						<h2>SASS compiles your .scss to .css</h2>
+						<p><img src="img/directory-structure-scss.jpg" height="173"></p>
+						<p><img src="img/directory-structure-css.jpg" height="173"></p>
+					</section>
+					<section>
 						<h2>WordPress and <code>style.css</code></h2>
 						<p><code>style.css</code> is key for WordPress themes</p>
+						<p>&nbsp;</p>
+						<p>You <em>could:</em></p>
+						<p>Set the CSS directory to the theme root: <code>css-dir=''</code></p>
 						<p>Rename <code>style.css</code> to <code>style.scss</code> and write SASS</p>
+						<p>But we'll look at a more organised way later...</p>
 					</section>
 					<section>
-						<h2>Tell SASS to <code>watch</code> for changes</h2>
-						<pre><code>$ cd path/to/theme
-$ mv style.css style.scss
-$ sass watch --style.scss:style.css</code></pre>
-					</section>
-					<section>
+						<p><small>If you want to keep using <code>style.css</code>...</small></p>
 						<h2>Keep the comments in tact</h2>
 						<p>Begin writing your SASS beneath the theme info</p>
 						<p>To make sure SASS doesn't remove your comments:</p>
@@ -173,19 +178,8 @@ Theme Name: SASSY Theme
 						<p><small>source: <a href="http://css-tricks.com/compass-compiling-and-wordpress-themes/">http://css-tricks.com/compass-compiling-and-wordpress-themes/</a></small></p>
 					</section>
 					<section>
-						<h2>A more flexible &amp; organised approach</h2>
-						<p>Keep your SASS files separate</p>
-						<p>Tell SASS to watch a directory of SASS files</p>
-						<pre><code>sass --watch scss:css</code></pre>
-					</section>
-					<section>
-						<h2>SASS compiles your .scss to .css</h2>
-						<p><img src="img/directory-structure-scss.jpg" height="173"></p>
-						<p><img src="img/directory-structure-css.jpg" height="173"></p>
-					</section>
-					<section>
 						<h2>Use the compiled stylesheet</h2>
-						<p>To use the compiled stylesheet:</p>
+						<p>Just enqueue the styles just like any other CSS file</p>
 						<pre><code>&lt;?php
   wp_enqueue_style(
     'global-styles',
@@ -195,12 +189,21 @@ Theme Name: SASSY Theme
     'screen'
   );
 ?&gt;</code></pre>
+					<p>Or just add a link tag to your <code>&lt;head&gt;</code></p>
+					<pre><code>&lt;link rel="stylesheet" href="path/to/css/screen.css" media="screen"&gt;</code></pre>
 					</section>
 					<section>
 						<h2>But what about <code>style.css</code>?</h2>
 						<p><code>style.css</code> is only required for theme information</p>
 						<p>There's no need to include it in your <code>&lt;head&gt;</code></p>
 						<p>Doing so would incurr an extra HTTP request</p>
+					</section>
+					<section>
+						<h2>Compass Configuration</h2>
+						<p>Compass creates a <code>config.rb</code> file in your project root</p>
+						<p>This allows you to set your paths to images, scss and css</p>
+						<p>It also allows you to change the format of compiled CSS</p>
+						<p><img src="img/config.jpg" alt="Config.rb"></p>
 					</section>
 				</section>
 
@@ -570,8 +573,187 @@ $midpoint:(lightness(#fff) + lightness(#000))/2;
 					</section>
 				</section>
 				<section>
-					<h1>What is Compass?</h1>
+					<section>
+						<h1>What is Compass?</h1>
+					</section>
+					<section>
+						<h2>Compass is a SASS Framework</h2>
+						<p>A bit like jQuery is to JavaScript, Compass is to SASS</p>
+						<p>And a bit like jQuery it helps you write less and do more</p>
+						<ul>
+							<li class="fragment roll-in">Helper functions</li>
+							<li class="fragment roll-in">Pre-defined Mixins</li>
+							<li class="fragment roll-in">Image Utilities</li>
+							<li class="fragment roll-in">Magic Sprites</li>
+						</ul>
+					</section>
+					<section>
+						<h2>No more vendor prefixes</h2>
+						<p>You can write your own mixins to deal with prefixes</p>
+						<p>But Compass has <em>loads</em> pre-defined for you</p>
+					</section>
+					<section>
+					<h2><s>Typing</s> Tedious vs. Compass</h2>
+						<p>&nbsp;</p>
+						<div class="column-left">
+							<h4>This is tedious:</h4>
+							<pre><code>-webkit-transform:rotate(5deg);
+   -moz-transform:rotate(5deg);
+     -o-transform:rotate(5deg);
+    -ms-transform:rotate(5deg);
+        transform:rotate(5deg);</code></pre>
+						</div>
+						<div class="column-right">
+							<h4>This is super fast:</h4>
+							<pre><code>@include rotate(5deg);</code></pre>
+						</div>
+					</section>
+					<section>
+						<h2>Set link colours in a single line</h2>
+						<p>Another simple but effective mixin</p>
+						<pre><code>@include link-colors($normal, $hover, $active, $visited, $focus)</code></pre>
+					</section>
+					<section>
+						<h2>So many mixins</h2>
+						<p>Check out <a href="http://www.compass-style.org">http://www.compass-style.org</a></p>
+					</section>
+					<section>
+						<h2>Helper Functions</h2>
+						<p><small><a href="http://compass-style.org/reference/compass/helpers/">http://compass-style.org/reference/compass/helpers/</a></small></p>
+					</section>
+					<section>
+						<h2>Hassle Free Image Dimensions</h2>
+						<pre class="fragment roll-in"><code>$image: 'image.png';
+$padding:20px;
+
+.element-with-bg-image {
+  width: image-width($image) - ($padding*2);
+  heigth: image-height($image) - ($padding*2);
+  padding: $padding;
+  background:url($image);
+}</code></pre>
+					</section>
+					<section>
+						<h2>Sprites</h2>
+						<p><small><a href="http://compass-style.org/help/tutorials/spriting/">http://compass-style.org/help/tutorials/spriting/</a></small></p>
+					</section>
+					<section>
+						<h2>Remember this?</h2>
+						<p>Our <code>@each</code> example dealt with sharing icons</p>
+						<pre style="width:100%"><code>.share-twitter     { background:url('../images/twitter-icon.png'); }
+.share-facebook    { background:url('../images/facebook-icon.png'); }
+.share-google-plus { background:url('../images/google-plus-icon.png'); }
+.share-pinterest   { background:url('../images/pinterest-icon.png'); }
+.share-dribble     { background:url('../images/dribble-icon.png'); }
+.share-youtube     { background:url('../images/youtube-icon.png'); }</code></pre>
+						<p>But we can do better with an image sprite</p>
 				</section>
+				<section>
+					<h2>Sprites: the tedious way</h2>
+					<div class="fragment roll-in">
+						<p>I've made a sprite of 6 social icons</p>
+						<img src="img/sprite.jpg" alt="social-sprite">
+					</div>
+					<p class="fragment roll-in">Now I have to work out the background position for each one</p>
+					<pre class="fragment roll-in"><code>.share-google-plus { background-position:-100px 0; }</code></pre>
+					<div class="fragment roll-in">
+						<p>But what if we realise no-one uses Google Plus?</p>
+						<p>If we remove it we have to do all our math again.</p>
+					</div>
+				</section>
+				<section>
+					<h2>Sprites: the Compass way</h2>
+					<h3>Housekeeping</h3>
+					<ul>
+						<li>Make sure your images directory is set correctly</li>
+						<li>Make a sub-folder such as <code>/images/share</code></li>
+						<li>Make sure all your individual images are in PNG format</li>
+					</ul>
+					<p><img src="img/directory-structure-share.jpg"></p>
+				</section>
+				<section>
+					<h2>Tell Compass to be Magic</h2>
+					<pre><code>$share-sprite-dimensions: true;
+@import "share/*.png";
+@include all-share-sprites;</code></pre>
+					<p>&nbsp;</p>
+					<h3 class="warning">Warning: Live demo</h3>
+					<p class="fragment roll-in"><small>Everything might break</small></p>
+				</section>
+				<section>
+					<h2>What does this do?</h2>
+					<p>All being well, Compass should generate this:</p>
+					<div class="column-left">
+						<img src="img/generated-sprite.jpg" alt="generated sprite">
+					</div>
+					<div class="column-right">
+						<img src="img/generated-css.jpg" alt="generated css">
+					</div>
+				</section>
+				<section>
+					<h2>How do I use this?</h2>
+					<p>To use these sprites, either add the classes to your <code>HTML</code></p>
+					<pre><code>&lt;a class="share-twitter-icon" href="#"&gt;twitter&lt;/a&gt;</code></pre>
+					<p>&nbsp;</p>
+					<p>Or use the sprite helper function for your desired image</p>
+					<pre><code>.twitter {
+  background: sprite($share, twitter-icon) no-repeat;
+}</code></pre>
+				</section>
+				<section>
+					<hgroup>
+					<h2><span class="small">...so</span> SASS <span class="small">&amp;</span> Compass <span class="small">are awesome</span></h2>
+					</hgroup>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>So What about WordPress?</h1>
+				</section>
+				<section>
+					<h2>Some requirements</h2>
+					<ul>
+						<li>Local dev envioronment and install of WordPress</li>
+						<li>Ruby installed on your system</li>
+						<li>SASS/Compass installed</li>
+					</ul>
+				</section>
+				<section>
+					<h2>What if you want to sell themes</h2>
+					<p>There are numerous SASS themes on the market</p>
+					<p>You can always develop with SASS and deliver CSS</p>
+					<p>Or you can sell both and conquor two markets at once</p>
+				</section>
+				<section>
+					<h2>Is there a plugin that can help me?</h2>
+					<p>There is a <a href="http://wordpress.org/extend/plugins/wordpress-sass
+						">Wordpress-SASS</a> plugin</p>
+					<p>It uses a PHP compiler. Which sounds a bit odd...</p>
+					<p>I haven't used it so can't really comment.</p>
+				</section>
+				<section>
+					<h2>Are there any starter themes for SASS?</h2>
+					<p>Yes.</p>
+					<ul class="fragment roll-in">
+						<li><a href="http://themble.com/bones/">Bones</a></li>
+						<li><a href="http://zurbpress.wpprofs.com/">Zurb Foundation Theme</a></li>
+						<li><a
+							href="https://github.com/micdijkstra/HTML5-Reset-Compass-Sass-Wordpress-Theme">HTML5 Reset</a></li>
+						<li><a href="https://github.com/ayoungh/HTML5-Blank-WordPress-Theme">HTML5 Blank</a></li>
+						<li><a href="http://forge.thethemefoundry.com/">Forge - a SASS CLI
+							bundler</a></li>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Got any questions?</h2>
+					<p><a href="http://www.guyroutledge.co.uk">http://www.guyroutledge.co.uk</a> |
+					<a href="http://www.twitter.com/guyroutledge">@guyroutledge</a></p>
+					<p>&nbsp;</p>
+					<p><small>Code and working examples: <br><a href="https://github.com/guyroutledge/sass-compass-talk">https://github.com/guyroutledge/sass-compass-talk</a></small></p>
+				</section>
+			</section>
 
 			</div>
 

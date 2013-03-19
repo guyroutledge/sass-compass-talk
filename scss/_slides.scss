@@ -2,7 +2,12 @@
 // $$ Custom Styles for Slides
 //**************************
 
+@import "compass";
+
 .reveal {
+	a:not(.image) { color:darken($color-brand, 5%); }
+	.roll span:after { background:darken($color-brand, 10%); }
+
 	hgroup .small { font-size:0.5em; }
 
 	.column-left,
@@ -41,5 +46,7 @@
 	li { font-size:0.8em; }
 
 	.warning { color:#c30; }
+
+
 }
 
