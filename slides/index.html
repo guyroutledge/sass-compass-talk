@@ -346,6 +346,24 @@ Theme Name: SASSY Theme
   }</code></pre>
 					</section>
 					<section>
+						<h2>Nested <code>@media</code> queries</h2>
+						<p>Keep related code together instead of in a separate file</p>
+						<pre><code>
+  $media-small:450px;
+  .main-nav {
+    // styles
+    ul {
+      // styles
+
+      @media screen and (min-width:$media-small) {
+        // styles
+      }
+
+    }
+  }</code></pre>
+						<p>You can use variables in them too...</p>
+					</section>
+					<section>
 						<h2 class="warning">Warning</h2>
 						<img src="img/inception.jpg" alt="Avoid SASS inception">
 						<p>If you're nesting more than 3 levels deep<br>
