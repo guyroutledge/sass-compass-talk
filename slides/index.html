@@ -316,6 +316,7 @@ Theme Name: SASSY Theme
 					</section>
 					<section>
 						<h2>Navigation styles in Vanilla CSS</h2>
+						<p>Writing out the selectors each time is tedious</p>
 						<pre><code>.main-nav               { /* styles */ }
 .main-nav ul            { /* styles */ }
 .main-nav ul li         { /* styles */ }
@@ -325,7 +326,8 @@ Theme Name: SASSY Theme
 					</section>
 					<section>
 						<h2>Navigation styles in SASS</h2>
-
+						<p>At compile time, the parent selectors are added automatically</p>
+						<p>The <code>&amp;</code> specifies <em>where</em> the parent selector is inserted</p>
 						<pre><code>.main-nav {
     // styles
     ul {
