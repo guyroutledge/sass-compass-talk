@@ -385,23 +385,22 @@ Theme Name: SASSY Theme
 					</section>
 					<section>
 						<h2>Mixins accept arguments</h2>
-						<pre><code>  @mixin button($background, $foreground, $font-size:1em){
-    display:inline-block;
-    padding:0.5em 1em;
+						<pre><code>// declare a mixin with @mixin
 
-    color:$foreground;
-    font-size:$font-size;
-    font-family:$font-brand;
+@mixin font($font-size, $line-height:1em) {
+  font-size:$font-size;
+  line-height:$line-height;
+}
 
-    background:$background;
-  }
-  .button {
-    @include button(blue, white);
-  }
-  .button-error {
-    @include button(#f90, white, 2em);
-    box-shadow:0px 0px 5px rgba(red, 0.3);
-  }</code></pre>
+// include a mixin with @include
+
+.main-title {
+  @include font(20px, 24px);
+}
+.main-title span {
+  @include font(16px, 18px);
+  font-style:italic;
+} </code></pre>
 					</section>
 					<section>
 						<h2>Use mixins to re-use the <code>@content</code></h2>
