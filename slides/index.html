@@ -355,13 +355,16 @@ Theme Name: SASSY Theme
 						<h2>Nested <code>@media</code> queries</h2>
 						<p>Keep related code together instead of in a separate file</p>
 						<pre><code>
-  $media-small:450px;
+  $media-tablet:700px;
   .main-nav {
     // styles
     ul {
       // styles
 
-      @media screen and (min-width:$media-small) {
+      @media screen and (min-width:450px) {
+        // styles
+      }
+      @media screen and (min-width:$media-tablet) {
         // styles
       }
 
